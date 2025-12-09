@@ -1,6 +1,6 @@
 # 🚋 InfoPanel.VBZ
 
-![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)
+![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
 ![.NET](https://img.shields.io/badge/.NET-8.0-purple.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
@@ -131,4 +131,4 @@ dotnet build -c Release
 Distributed under the MIT License. See `LICENSE` for more information.
 
 **Author:** F3NN3X  
-**Version:** 1.0.1
+**Version:** 1.1.0

@@ -27,3 +27,12 @@ All notable changes to this project will be documented in this file.
 
 - Fixed build pipeline issues (PluginInfo.ini missing, project reference path)
 - Updated project metadata and repository URLs
+
+## [1.1.0] - 2025-12-09
+
+### Added
+
+- **Station Name Sensor**: New `vbz_station_name` sensor displays the name of the monitored stop.
+- **Enhanced Table**: Added columns for **Icon** (Transport Mode) and **Platform**.
+- **Transport Icons**: Visual indicators for Trams (🚋), Buses (🚌), Trains (🚆), etc.
+- **Platform Info**: Displays planned and estimated platform/track numbers.
