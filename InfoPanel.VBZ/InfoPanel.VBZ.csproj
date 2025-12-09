@@ -20,6 +20,8 @@
     <AssemblyCompany>F3NN3X</AssemblyCompany>
     <AssemblyCopyright>Copyright © F3NN3X 2025</AssemblyCopyright>
     <AssemblyProduct>InfoPanel VBZ Plugin</AssemblyProduct>
+    <RepositoryUrl>https://github.com/F3NN3X/InfoPanel.VBZ</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/F3NN3X/InfoPanel.VBZ</PackageProjectUrl>
     
     <!-- Plugin-Specific Configuration -->
     <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>

@@ -113,7 +113,7 @@ Want to contribute or modify the code?
 
 ```powershell
 # Clone the repo
-git clone https://github.com/YourUsername/InfoPanel.VBZ.git
+git clone https://github.com/F3NN3X/InfoPanel.VBZ.git
 
 # Build for Release
 dotnet build -c Release
