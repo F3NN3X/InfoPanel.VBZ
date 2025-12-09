@@ -284,7 +284,7 @@ namespace InfoPanel.VBZ.Services
                     {
                         departure.Line = service.Descendants(ojp + "PublishedLineName").FirstOrDefault()?.Descendants(ojp + "Text").FirstOrDefault()?.Value ?? "?";
                         departure.Destination = service.Descendants(ojp + "DestinationText").FirstOrDefault()?.Descendants(ojp + "Text").FirstOrDefault()?.Value ?? "?";
-                        
+
                         // Parse Transport Mode
                         var mode = service.Descendants(ojp + "Mode").FirstOrDefault();
                         if (mode != null)
@@ -347,6 +347,11 @@ namespace InfoPanel.VBZ.Services
                         }
                     }
 
+                    // Assign Line Colors (VBZ specific fallback)
+                    var colors = GetVbzLineColors(departure.Line);
+                    departure.LineBackgroundColor = colors.Bg;
+                    departure.LineTextColor = colors.Fg;
+
                     vbzData.Departures.Add(departure);
                 }
             }
@@ -359,6 +364,40 @@ namespace InfoPanel.VBZ.Services
             }
 
             return vbzData;
+        }
+
+        private (string Bg, string Fg) GetVbzLineColors(string line)
+        {
+            return line switch
+            {
+                // Trams
+                "2" => ("#E30613", "#FFFFFF"), // Red
+                "3" => ("#007A33", "#FFFFFF"), // Green
+                "4" => ("#3F2985", "#FFFFFF"), // Purple
+                "5" => ("#7F5629", "#FFFFFF"), // Brown
+                "6" => ("#E88D23", "#FFFFFF"), // Orange
+                "7" => ("#1D1D1B", "#FFFFFF"), // Black
+                "8" => ("#8BC63E", "#FFFFFF"), // Light Green
+                "9" => ("#3F2985", "#FFFFFF"), // Purple
+                "10" => ("#DC005D", "#FFFFFF"), // Pink
+                "11" => ("#007A33", "#FFFFFF"), // Green
+                "12" => ("#009EE0", "#FFFFFF"), // Light Blue
+                "13" => ("#F6C90E", "#000000"), // Yellow
+                "14" => ("#009EE0", "#FFFFFF"), // Light Blue
+                "15" => ("#E30613", "#FFFFFF"), // Red
+                "17" => ("#A3238E", "#FFFFFF"), // Violet
+                
+                // Trolleybuses
+                "31" => ("#009EE0", "#FFFFFF"),
+                "32" => ("#1D1D1B", "#FFFFFF"),
+                "33" => ("#E88D23", "#FFFFFF"),
+                "34" => ("#8BC63E", "#FFFFFF"),
+                "46" => ("#E30613", "#FFFFFF"),
+                "72" => ("#DC005D", "#FFFFFF"),
+                
+                // Default
+                _ => ("#FFFFFF", "#000000")
+            };
         }
 
         /// <summary>

@@ -11,7 +11,7 @@ namespace InfoPanel.VBZ.Models
         public bool IsRealtime { get; set; }
         public bool IsAccessible { get; set; }
         public bool IsLate { get; set; }
-        
+
         // New properties
         public string Platform { get; set; } = "";
         public string TransportMode { get; set; } = ""; // e.g. tram, bus
@@ -39,7 +39,7 @@ namespace InfoPanel.VBZ.Models
         public DateTime Timestamp { get; set; } = DateTime.Now;
         public bool HasError { get; set; }
         public string? ErrorMessage { get; set; }
-        
+
         // New property
         public string StationName { get; set; } = "";
 

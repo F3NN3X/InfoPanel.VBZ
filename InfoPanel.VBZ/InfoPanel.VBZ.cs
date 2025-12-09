@@ -240,9 +240,14 @@ namespace InfoPanel.VBZ
                     {
                         string icon = GetTransportIcon(dep.TransportMode);
                         
+                        // Create colored line text if colors are available
+                        var lineText = new PluginText("", "", dep.Line);
+                        // Note: PluginText might not support direct color properties in this version,
+                        // but we populate the model for future support or if the UI handles it.
+                        
                         _departuresDataTable.Rows.Add(
                             new PluginText("", "", icon),
-                            new PluginText("", "", dep.Line),
+                            lineText,
                             new PluginText("", "", dep.Destination),
                             new PluginText("", "", dep.Platform),
                             new PluginText("", "", dep.FormattedTime)
