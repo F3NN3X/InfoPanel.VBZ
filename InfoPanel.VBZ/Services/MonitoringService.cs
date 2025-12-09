@@ -386,7 +386,7 @@ namespace InfoPanel.VBZ.Services
                 "14" => ("#009EE0", "#FFFFFF"), // Light Blue
                 "15" => ("#E30613", "#FFFFFF"), // Red
                 "17" => ("#A3238E", "#FFFFFF"), // Violet
-                
+
                 // Trolleybuses
                 "31" => ("#009EE0", "#FFFFFF"),
                 "32" => ("#1D1D1B", "#FFFFFF"),
@@ -394,7 +394,7 @@ namespace InfoPanel.VBZ.Services
                 "34" => ("#8BC63E", "#FFFFFF"),
                 "46" => ("#E30613", "#FFFFFF"),
                 "72" => ("#DC005D", "#FFFFFF"),
-                
+
                 // Default
                 _ => ("#FFFFFF", "#000000")
             };
