@@ -20,3 +20,10 @@ All notable changes to this project will be documented in this file.
 - Refactored template architecture to focus on VBZ monitoring
 - Replaced JSON parsing with XML parsing for OJP compliance
 - Updated project structure to remove unused services
+
+## [1.0.1] - 2025-12-09
+
+### Fixed
+
+- Fixed build pipeline issues (PluginInfo.ini missing, project reference path)
+- Updated project metadata and repository URLs
