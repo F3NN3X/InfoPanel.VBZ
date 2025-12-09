@@ -39,12 +39,13 @@ namespace InfoPanel.VBZ
         #region Sensors
 
         private readonly PluginText _statusSensor = new("status", "Status", "Initializing...");
+        private readonly PluginText _stationSensor = new("station_name", "Station Name", "Loading...");
         private readonly List<PluginText> _lineSensors = new();
         private readonly List<PluginText> _destSensors = new();
         private readonly List<PluginText> _timeSensors = new();
 
         // Table Sensor
-        private static readonly string _departuresTableFormat = "0:50|1:200|2:80";
+        private static readonly string _departuresTableFormat = "0:30|1:50|2:200|3:50|4:80"; // Icon|Line|Dest|Plat|Time
         private readonly DataTable _departuresDataTable = new();
         private readonly PluginTable _departuresTable;
 
@@ -64,8 +65,10 @@ namespace InfoPanel.VBZ
         public VBZMain() : base("InfoPanel.VBZ", "InfoPanel VBZ Monitor", "InfoPanel plugin for VBZ monitoring")
         {
             // Initialize DataTable columns
+            _departuresDataTable.Columns.Add("Icon", typeof(PluginText));
             _departuresDataTable.Columns.Add("Line", typeof(PluginText));
             _departuresDataTable.Columns.Add("Destination", typeof(PluginText));
+            _departuresDataTable.Columns.Add("Platform", typeof(PluginText));
             _departuresDataTable.Columns.Add("Time", typeof(PluginText));
 
             _departuresTable = new PluginTable("departures_table", "Departures Table", _departuresDataTable, _departuresTableFormat);
@@ -119,6 +122,7 @@ namespace InfoPanel.VBZ
                 var container = new PluginContainer("VBZ");
 
                 container.Entries.Add(_statusSensor);
+                container.Entries.Add(_stationSensor);
                 container.Entries.Add(_departuresTable);
 
                 // Create sensors for departures based on config
@@ -223,6 +227,10 @@ namespace InfoPanel.VBZ
                 }
 
                 _statusSensor.Value = $"Updated: {e.Data.Timestamp:HH:mm:ss}";
+                if (!string.IsNullOrEmpty(e.Data.StationName))
+                {
+                    _stationSensor.Value = e.Data.StationName;
+                }
 
                 // Update table
                 lock (_departuresDataTable)
@@ -230,9 +238,13 @@ namespace InfoPanel.VBZ
                     _departuresDataTable.Rows.Clear();
                     foreach (var dep in e.Data.Departures)
                     {
+                        string icon = GetTransportIcon(dep.TransportMode);
+                        
                         _departuresDataTable.Rows.Add(
+                            new PluginText("", "", icon),
                             new PluginText("", "", dep.Line),
                             new PluginText("", "", dep.Destination),
+                            new PluginText("", "", dep.Platform),
                             new PluginText("", "", dep.FormattedTime)
                         );
                     }
@@ -263,6 +275,20 @@ namespace InfoPanel.VBZ
                 _loggingService?.LogError($"[VBZ] Error updating sensors: {ex.Message}", ex);
                 _statusSensor.Value = "Error updating display";
             }
+        }
+
+        private string GetTransportIcon(string mode)
+        {
+            return mode.ToLower() switch
+            {
+                "tram" => "🚋",
+                "bus" => "🚌",
+                "rail" => "🚆",
+                "funicular" => "🚠",
+                "ferry" => "⛴️",
+                "gondola" => "🚠",
+                _ => "🚍"
+            };
         }
 
         #endregion

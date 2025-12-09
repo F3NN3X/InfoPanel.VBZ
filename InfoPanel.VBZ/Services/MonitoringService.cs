@@ -284,6 +284,13 @@ namespace InfoPanel.VBZ.Services
                     {
                         departure.Line = service.Descendants(ojp + "PublishedLineName").FirstOrDefault()?.Descendants(ojp + "Text").FirstOrDefault()?.Value ?? "?";
                         departure.Destination = service.Descendants(ojp + "DestinationText").FirstOrDefault()?.Descendants(ojp + "Text").FirstOrDefault()?.Value ?? "?";
+                        
+                        // Parse Transport Mode
+                        var mode = service.Descendants(ojp + "Mode").FirstOrDefault();
+                        if (mode != null)
+                        {
+                            departure.TransportMode = mode.Descendants(ojp + "PtMode").FirstOrDefault()?.Value ?? "";
+                        }
 
                         // Check for accessibility (Attribute/Code = A__NF)
                         var attrs = service.Descendants(ojp + "Attribute");
@@ -303,6 +310,17 @@ namespace InfoPanel.VBZ.Services
                         var callAtStop = thisCall.Descendants(ojp + "CallAtStop").FirstOrDefault();
                         if (callAtStop != null)
                         {
+                            // Parse Station Name (only need to do this once per response really, but safe here)
+                            if (string.IsNullOrEmpty(vbzData.StationName))
+                            {
+                                vbzData.StationName = callAtStop.Descendants(ojp + "StopPointName").FirstOrDefault()?.Descendants(ojp + "Text").FirstOrDefault()?.Value ?? "";
+                            }
+
+                            // Parse Platform
+                            var plannedQuay = callAtStop.Descendants(ojp + "PlannedQuay").FirstOrDefault()?.Descendants(ojp + "Text").FirstOrDefault()?.Value;
+                            var estimatedQuay = callAtStop.Descendants(ojp + "EstimatedQuay").FirstOrDefault()?.Descendants(ojp + "Text").FirstOrDefault()?.Value;
+                            departure.Platform = !string.IsNullOrEmpty(estimatedQuay) ? estimatedQuay : (plannedQuay ?? "");
+
                             var serviceDeparture = callAtStop.Descendants(ojp + "ServiceDeparture").FirstOrDefault();
                             if (serviceDeparture != null)
                             {
