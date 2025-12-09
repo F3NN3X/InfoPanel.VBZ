@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [1.0.0] - 2025-12-09
 
-### Added
+### New Features
 
 - Initial release of InfoPanel.VBZ plugin
 - Integration with OpenTransportData Swiss OJP 2020 API (XML interface)
