@@ -239,5 +239,7 @@ orleans.codegen.cs
 
 # InfoPanel Plugin specific
 *.ini
+!PluginInfo.ini
+!InfoPanel.VBZ.dll.ini
 *.log
 
