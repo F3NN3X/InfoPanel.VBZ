@@ -91,10 +91,16 @@
       <TargetPath>PluginInfo.ini</TargetPath>
     </None>
     
-    <!-- Configuration Files -->
-    <None Include="InfoPanel.VBZ.ini" Condition="Exists('InfoPanel.VBZ.ini')">
+    <!-- Default Configuration Template -->
+    <None Include="InfoPanel.VBZ.dll.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <TargetPath>InfoPanel.VBZ.ini</TargetPath>
+      <TargetPath>InfoPanel.VBZ.dll.ini.template</TargetPath>
+    </None>
+    
+    <!-- Configuration Files -->
+    <None Include="InfoPanel.VBZ.dll.ini" Condition="Exists('InfoPanel.VBZ.dll.ini')">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>InfoPanel.VBZ.dll.ini</TargetPath>
     </None>
     
     <!-- Documentation Files -->
